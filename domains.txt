@@ -1,0 +1,3 @@
+example.com
+microsoft.com
+google.com
