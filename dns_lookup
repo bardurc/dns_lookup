@@ -2,7 +2,7 @@ try:
     import dns.resolver
 except ModuleNotFoundError:
     print('dnspython not found')
-    print('Install with pip \"pip install dnspython\"')
+    print('Install with pip "pip install dnspython"')
     quit()
 
 domains = [
