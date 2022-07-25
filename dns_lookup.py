@@ -19,6 +19,7 @@ with open('domains.txt', 'r') as f:
         nsrec=None
         txtrec=None
         dmarcrec=None
+        soarec=None
 
         try:
             a_rec = dns.resolver.resolve(d, 'A')
@@ -40,6 +41,11 @@ with open('domains.txt', 'r') as f:
             txtrec=True
         except dns.resolver.NoAnswer:
             txtrec=False
+        try:
+            soa_rec = dns.resolver.resolve(d, 'SOA')
+            soarec=True
+        except dns.resolver.NoAnswer:
+            soarec=False
         dmarc_domain = f'_dmarc.{d}'
         try:
             dmarc_rec = dns.resolver.resolve(dmarc_domain, 'TXT')
@@ -71,10 +77,16 @@ with open('domains.txt', 'r') as f:
                 print(f'TXT record: {val}')
         else:
             print('No TXT record found')
+        
+        if soarec==True:
+            for val in soa_rec:
+                print(f'SOA record: {val}')
+        else:
+            print('No TXT record found')
 
         if dmarcrec==True:
             for val in dmarc_rec:
-                print(f'TXT record: {val}')
+                print(f'DMARC TXT record: {val}')
         else:
             print('No dmarc record found')
 
